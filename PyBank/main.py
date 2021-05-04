@@ -10,6 +10,16 @@ with open(budget_path) as budget_file:
     
     budget_header = next(budget_reader)
     print(f"Header: {budget_header}")
-
-    for budget_row in budget_reader:
+    
+    months = 0 #set counter for amount of months
+    
+    for budget_row in budget_reader: #reads each ro in csv file
         print(budget_row)
+        months = months + 1
+    print(f'Total Months: {months}') #Months in datasheet
+
+
+    
+
+    
+        
