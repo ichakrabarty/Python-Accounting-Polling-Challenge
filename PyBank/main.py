@@ -13,15 +13,26 @@ with open(budget_path) as budget_file:
     
     months = 0 #set counter for amount of months
     budget_total = 0 #set counter for total Profit/Losses
-    
+    previous = 0
+
+
     for budget_row in budget_reader: #reads each row in csv file
         budget_list = list(budget_row)
         print(budget_list)
+       
         
         months = months + 1
         budget_total = int(budget_list[1]) + budget_total
-         
-    
+        
+        
+        difference =  int(budget_list[1]) - previous 
+        previous = int(budget_list[1])
+        print(difference)
+
+
+
+    print(f'Financial Analysis')
+    print(f'-------------------------')
     print(f'Total Months: {months}') #Months in datasheet
     print(f'Total: ${budget_total}') #Total Profit/Losses
 
