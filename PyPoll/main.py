@@ -3,7 +3,6 @@ import os
 import csv
 
 election_path = os.path.join('Resources', 'election_data.csv')
-#print(election_path)
 
 with open(election_path) as election_file:
     election_reader = csv.reader(election_file)
@@ -13,8 +12,6 @@ with open(election_path) as election_file:
 
     election_head = next(election_file)
     
-    #print(election_head)
-
     #voter counters
     total_votes = 0 
     khan_votes = 0
@@ -70,9 +67,6 @@ with open(election_path) as election_file:
             previous_tally = float(tally_list[1])       
 
         
-
-    #print(candidates_list) 
-    #print(percentage_zip)
     print(f'Election Results')
     print(f'------------------------------')   
     print(f'Total Votes: {total_votes}') #prints total votes cast

@@ -6,10 +6,8 @@ import csv
 budget_path = os.path.join( 'Resources' , 'budget_data.csv')
 with open(budget_path) as budget_file:
     budget_reader = csv.reader(budget_file)
-    #print(budget_reader)
     
     budget_header = next(budget_reader)
-    #print(f"Header: {budget_header}")
     
     months = 0 #set counter for amount of months
     budget_total = 0 #set counter for total Profit/Losses
@@ -23,16 +21,13 @@ with open(budget_path) as budget_file:
 
     for budget_row in budget_reader: #reads each row in csv file
         budget_list = list(budget_row)
-        #print(budget_list)
        
         months = months + 1
         budget_total = int(budget_list[1]) + budget_total
-      
         
         difference =  int(budget_list[1]) - previous
         previous = int(budget_list[1])  
         
-        #print(difference)
         total_diff = difference + total_diff 
     
         #Find the max and min changes in Profit/Loss
@@ -53,9 +48,7 @@ with open(budget_path) as budget_file:
     print(f'Total: ${budget_total}') #Total Profit/Losses
     print(f'Average Change: ${round(avg_diff,2)}') #Average Change in Profit/Loss
     print(f'Greatest Increase in Profits: {maxmonth} $({maxvalue})') #Max Change in Profit/Loss
-    print(f'Greatest Decrease in Profits: {minmonth} $({minvalue})') #Min Change in Profit/Loss
-
-   
+    print(f'Greatest Decrease in Profits: {minmonth} $({minvalue})') #Min Change in Profit/Loss 
 
 budget_results = os.path.join('analysis','results.txt') #txt file with results
 with open(budget_results, 'w') as results:
