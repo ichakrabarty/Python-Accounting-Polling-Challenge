@@ -3,7 +3,7 @@ import os
 import csv
 
 election_path = os.path.join('Resources', 'election_data.csv')
-print(election_path)
+#print(election_path)
 
 with open(election_path) as election_file:
     election_reader = csv.reader(election_file)
@@ -47,10 +47,28 @@ with open(election_path) as election_file:
 
     percentage_list = [khan_percentage,correy_percentage,li_percentage,tooley_percentage]
     percentage_zip = zip(candidates_list,percentage_list)
-    percentage_file = os.path.join('analysis', 'percentage.csv')
-    #with open(percentage_file) as tally:
-        #percentage_write = csv.writer(percentage_zip)
-       #writer.writerow(tally)
+    percentage_file = os.path.join('analysis','percentage.csv')
+    with open(percentage_file, 'w', newline = '') as tally:
+        writer = csv.writer(tally)
+        writer.writerow(['Name','Percent Votes'])
+        writer.writerows(percentage_zip)
+    with open(percentage_file, 'r') as tally2:
+        tally_reader = csv.reader(tally2)
+        tally_header = next(tally2)
+        previous_tally = 0
+
+        for tally_row in tally_reader:
+            tally_list = list(tally_row)
+
+            current_tally = float(tally_list[1])
+
+            if current_tally > previous_tally:
+                max_tally = float(tally_list[1])
+                winner = tally_list[0]
+                
+            previous_tally = float(tally_list[1])       
+
+        
 
     #print(candidates_list) 
     #print(percentage_zip)
@@ -63,6 +81,7 @@ with open(election_path) as election_file:
     print(f'Li: {round(li_percentage,3)}% ({li_votes})')
     print(f"O'Tooley: {round(tooley_percentage,3)}% ({tooley_votes})")
     print(f'------------------------------')
+    print(f'Winner: {winner}')
     print(f'------------------------------')
 
 election_results = os.path.join('analysis','results.txt')
@@ -76,4 +95,5 @@ with open(election_results, 'w') as results:
     print(f'Li: {round(li_percentage,3)}% ({li_votes})', file = results)
     print(f"O'Tooley: {round(tooley_percentage,3)}% ({tooley_votes})",file = results)
     print(f'------------------------------',file = results)
+    print(f'Winner: {winner}', file = results)
     print(f'------------------------------',file = results)
