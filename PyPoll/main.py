@@ -8,7 +8,7 @@ election_path = os.path.join('Resources', 'election_data.csv')
 with open(election_path) as election_file:
     election_reader = csv.reader(election_file)
 
-    candidates_list = []
+    candidates_list = [] #create list with all the candidates
         
 
     election_head = next(election_file)
@@ -27,7 +27,7 @@ with open(election_path) as election_file:
 
         election_list = list(election_row)
 
-        if election_list[2] not in candidates_list:
+        if election_list[2] not in candidates_list: #puts all candidate names in candidates_list
             candidates_list.append(election_list[2])
 
 
@@ -40,6 +40,7 @@ with open(election_path) as election_file:
         elif election_list[2] == "O'Tooley":  
             tooley_votes = tooley_votes + 1  
 
+    #percentage of votes for each candidate
     khan_percentage = khan_votes/total_votes * 100
     correy_percentage = correy_votes/total_votes * 100
     li_percentage = li_votes/total_votes * 100
@@ -47,8 +48,8 @@ with open(election_path) as election_file:
 
     percentage_list = [khan_percentage,correy_percentage,li_percentage,tooley_percentage]
     percentage_zip = zip(candidates_list,percentage_list)
-    percentage_file = os.path.join('analysis','percentage.csv')
-    with open(percentage_file, 'w', newline = '') as tally:
+    percentage_file = os.path.join('analysis','percentage.csv') #create new csv file with total percentages for each candidate
+    with open(percentage_file, 'w', newline = '') as tally: 
         writer = csv.writer(tally)
         writer.writerow(['Name','Percent Votes'])
         writer.writerows(percentage_zip)
@@ -62,7 +63,7 @@ with open(election_path) as election_file:
 
             current_tally = float(tally_list[1])
 
-            if current_tally > previous_tally:
+            if current_tally > previous_tally: #code for winning candidate 
                 max_tally = float(tally_list[1])
                 winner = tally_list[0]
                 
@@ -74,17 +75,17 @@ with open(election_path) as election_file:
     #print(percentage_zip)
     print(f'Election Results')
     print(f'------------------------------')   
-    print(f'Total Votes: {total_votes}')
+    print(f'Total Votes: {total_votes}') #prints total votes cast
     print(f'------------------------------')
-    print(f'Khan: {round(khan_percentage,3)}% ({khan_votes})')
-    print(f'Correy: {round(correy_percentage,3)}% ({correy_votes})')
-    print(f'Li: {round(li_percentage,3)}% ({li_votes})')
-    print(f"O'Tooley: {round(tooley_percentage,3)}% ({tooley_votes})")
+    print(f'Khan: {round(khan_percentage,3)}% ({khan_votes})') #prints percentage of votes and total votes cast for khan
+    print(f'Correy: {round(correy_percentage,3)}% ({correy_votes})') #prints percentage of votes and total votes cast for correy
+    print(f'Li: {round(li_percentage,3)}% ({li_votes})') #prints percentage of votes and total votes cast for li
+    print(f"O'Tooley: {round(tooley_percentage,3)}% ({tooley_votes})") #prints percentage of votes and total votes cast for O'Tooley
     print(f'------------------------------')
-    print(f'Winner: {winner}')
+    print(f'Winner: {winner}') #prints the winner of the election
     print(f'------------------------------')
 
-election_results = os.path.join('analysis','results.txt')
+election_results = os.path.join('analysis','results.txt') #creates txt file with the results
 with open(election_results, 'w') as results:
     print(f'Election Results', file = results)
     print(f'------------------------------',file = results)   

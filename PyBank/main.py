@@ -57,7 +57,7 @@ with open(budget_path) as budget_file:
 
    
 
-budget_results = os.path.join('analysis','results.txt')
+budget_results = os.path.join('analysis','results.txt') #txt file with results
 with open(budget_results, 'w') as results:
     print(f'Financial Analysis', file = results)
     print(f'-------------------------', file = results)
