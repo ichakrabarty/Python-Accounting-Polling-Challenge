@@ -8,6 +8,9 @@ print(election_path)
 with open(election_path) as election_file:
     election_reader = csv.reader(election_file)
 
+    candidates_list = []
+        
+
     election_head = next(election_file)
     
     #print(election_head)
@@ -23,7 +26,10 @@ with open(election_path) as election_file:
         total_votes = total_votes + 1
 
         election_list = list(election_row)
-        candidates = []
+
+        if election_list[2] not in candidates_list:
+            candidates_list.append(election_list[2])
+
 
         if election_list[2] == 'Khan':
             khan_votes = khan_votes + 1
@@ -39,6 +45,15 @@ with open(election_path) as election_file:
     li_percentage = li_votes/total_votes * 100
     tooley_percentage = tooley_votes/total_votes * 100
 
+    percentage_list = [khan_percentage,correy_percentage,li_percentage,tooley_percentage]
+    percentage_zip = zip(candidates_list,percentage_list)
+    percentage_file = os.path.join('analysis', 'percentage.csv')
+    #with open(percentage_file) as tally:
+        #percentage_write = csv.writer(percentage_zip)
+       #writer.writerow(tally)
+
+    #print(candidates_list) 
+    #print(percentage_zip)
     print(f'Election Results')
     print(f'------------------------------')   
     print(f'Total Votes: {total_votes}')
@@ -49,3 +64,16 @@ with open(election_path) as election_file:
     print(f"O'Tooley: {round(tooley_percentage,3)}% ({tooley_votes})")
     print(f'------------------------------')
     print(f'------------------------------')
+
+election_results = os.path.join('analysis','results.txt')
+with open(election_results, 'w') as results:
+    print(f'Election Results', file = results)
+    print(f'------------------------------',file = results)   
+    print(f'Total Votes: {total_votes}', file = results)
+    print(f'------------------------------', file = results)
+    print(f'Khan: {round(khan_percentage,3)}% ({khan_votes})', file = results)
+    print(f'Correy: {round(correy_percentage,3)}% ({correy_votes})', file = results)
+    print(f'Li: {round(li_percentage,3)}% ({li_votes})', file = results)
+    print(f"O'Tooley: {round(tooley_percentage,3)}% ({tooley_votes})",file = results)
+    print(f'------------------------------',file = results)
+    print(f'------------------------------',file = results)
